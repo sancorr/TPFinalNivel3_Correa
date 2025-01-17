@@ -73,6 +73,9 @@
     <Content Include="Detalle.aspx" />
     <Content Include="Favoritos.aspx" />
     <Content Include="Listado.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="MiPerfil.aspx" />
+    <Content Include="Registro.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +110,7 @@
     <Compile Include="dominio\Articulo.cs" />
     <Compile Include="dominio\CategoriaArticulo.cs" />
     <Compile Include="dominio\MarcaArticulo.cs" />
+    <Compile Include="dominio\Usuario.cs" />
     <Compile Include="Favoritos.aspx.cs">
       <DependentUpon>Favoritos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -121,6 +125,13 @@
     <Compile Include="Listado.aspx.designer.cs">
       <DependentUpon>Listado.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -128,11 +139,27 @@
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="MiPerfil.aspx.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiPerfil.aspx.designer.cs">
+      <DependentUpon>MiPerfil.aspx</DependentUpon>
+    </Compile>
     <Compile Include="negocio\AccesoDatos.cs" />
     <Compile Include="negocio\ArticuloNegocio.cs" />
     <Compile Include="negocio\CategoriaArticuloNegocio.cs" />
     <Compile Include="negocio\MarcaArticuloNegocio.cs" />
+    <Compile Include="negocio\Seguridad.cs" />
+    <Compile Include="negocio\UsuarioNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="MasterPage.Master" />
@@ -146,7 +173,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Imagenes\Perfil\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

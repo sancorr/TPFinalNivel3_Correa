@@ -11,43 +11,52 @@ namespace TPFinalNivel3_Correa
 {
 
 
-	public partial class MasterPage
+	public partial class Registro
 	{
 
 		/// <summary>
-		/// Control head.
+		/// Control tbxNombre.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+		protected global::System.Web.UI.WebControls.TextBox tbxNombre;
 
 		/// <summary>
-		/// Control form1.
+		/// Control tbxApellido.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+		protected global::System.Web.UI.WebControls.TextBox tbxApellido;
 
 		/// <summary>
-		/// Control btnSalir.
+		/// Control tbxEmail.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Button btnSalir;
+		protected global::System.Web.UI.WebControls.TextBox tbxEmail;
 
 		/// <summary>
-		/// Control MainContent.
+		/// Control tbxPass.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+		protected global::System.Web.UI.WebControls.TextBox tbxPass;
+
+		/// <summary>
+		/// Control btnRegistro.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnRegistro;
 	}
 }

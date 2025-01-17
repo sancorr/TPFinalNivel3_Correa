@@ -31,11 +31,24 @@
                             <a class="nav-link" href="Favoritos.aspx">Favoritos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="Perfil.aspx">Mi Perfil</a>
+                            <a class="nav-link" href="MiPerfil.aspx">Mi Perfil</a>
                         </li>
                     </ul>
+                    <%if (TPFinalNivel3_Correa.negocio.Seguridad.sesionActiva(Session["sesionAbierta"]))
+                        {%>
+                    <div>
+                        <asp:Button runat="server" Text="Salir" CssClass="btn btn-danger" ID="btnSalir" OnClick="btnSalir_Click"/>
+                    </div>
+                    <%}else
+                        { %>
+                    <div>
+                        <a href="Registro.aspx">Registrarse</a>
+                        <a href="Login.aspx">Ingresar</a>
+                    </div>
+                    <% }%>
                 </div>
             </div>
+
         </nav>
         <div class="container">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">

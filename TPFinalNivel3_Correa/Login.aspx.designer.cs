@@ -11,43 +11,34 @@ namespace TPFinalNivel3_Correa
 {
 
 
-	public partial class MasterPage
+	public partial class Login
 	{
 
 		/// <summary>
-		/// Control head.
+		/// Control tbxEmailIngreso.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+		protected global::System.Web.UI.WebControls.TextBox tbxEmailIngreso;
 
 		/// <summary>
-		/// Control form1.
+		/// Control tbxPassIngreso.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+		protected global::System.Web.UI.WebControls.TextBox tbxPassIngreso;
 
 		/// <summary>
-		/// Control btnSalir.
+		/// Control btnIngreso.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Button btnSalir;
-
-		/// <summary>
-		/// Control MainContent.
-		/// </summary>
-		/// <remarks>
-		/// Campo generado automáticamente.
-		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+		protected global::System.Web.UI.WebControls.Button btnIngreso;
 	}
 }

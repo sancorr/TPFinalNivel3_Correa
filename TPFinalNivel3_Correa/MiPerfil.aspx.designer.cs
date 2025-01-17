@@ -11,97 +11,97 @@ namespace TPFinalNivel3_Correa
 {
 
 
-	public partial class Default
+	public partial class MiPerfil
 	{
 
 		/// <summary>
-		/// Control ScriptManagerFiltro.
+		/// Control lblEmail.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.ScriptManager ScriptManagerFiltro;
+		protected global::System.Web.UI.WebControls.Label lblEmail;
 
 		/// <summary>
-		/// Control UpdatePanelFiltro.
+		/// Control tbxEmail.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.UpdatePanel UpdatePanelFiltro;
+		protected global::System.Web.UI.WebControls.TextBox tbxEmail;
 
 		/// <summary>
-		/// Control chkFiltro.
+		/// Control lblNombre.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.CheckBox chkFiltro;
+		protected global::System.Web.UI.WebControls.Label lblNombre;
 
 		/// <summary>
-		/// Control lblError.
+		/// Control tbxNombre.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Label lblError;
+		protected global::System.Web.UI.WebControls.TextBox tbxNombre;
 
 		/// <summary>
-		/// Control lblResBusqueda.
+		/// Control lblApellido.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Label lblResBusqueda;
+		protected global::System.Web.UI.WebControls.Label lblApellido;
 
 		/// <summary>
-		/// Control ddlCampo.
+		/// Control tbxApellido.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.DropDownList ddlCampo;
+		protected global::System.Web.UI.WebControls.TextBox tbxApellido;
 
 		/// <summary>
-		/// Control ddlCriterio.
+		/// Control lblImagenPerfil.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.DropDownList ddlCriterio;
+		protected global::System.Web.UI.WebControls.Label lblImagenPerfil;
 
 		/// <summary>
-		/// Control tbxFiltro.
+		/// Control tbxImagenPerfil.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.TextBox tbxFiltro;
+		protected global::System.Web.UI.HtmlControls.HtmlInputFile tbxImagenPerfil;
 
 		/// <summary>
-		/// Control btnBuscarFiltro.
+		/// Control imagenPerfil.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Button btnBuscarFiltro;
+		protected global::System.Web.UI.WebControls.Image imagenPerfil;
 
 		/// <summary>
-		/// Control repeaterHome.
+		/// Control btnGuardar.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Repeater repeaterHome;
+		protected global::System.Web.UI.WebControls.Button btnGuardar;
 	}
 }
