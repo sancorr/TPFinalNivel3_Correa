@@ -34,18 +34,18 @@
                             <a class="nav-link" href="MiPerfil.aspx">Mi Perfil</a>
                         </li>
                     </ul>
-                    <%if (TPFinalNivel3_Correa.negocio.Seguridad.sesionActiva(Session["sesionAbierta"]))
-                        {%>
-                    <div>
-                        <asp:Button runat="server" Text="Salir" CssClass="btn btn-danger" ID="btnSalir" OnClick="btnSalir_Click"/>
-                    </div>
-                    <%}else
-                        { %>
-                    <div>
+                    <div class="d-flex">
+                        <%if (TPFinalNivel3_Correa.negocio.Seguridad.sesionActiva(Session["sesionAbierta"]))
+                            {%>
+                        <asp:Button runat="server" Text="Salir" CssClass="btn btn-danger" ID="btnSalir" OnClick="btnSalir_Click" />
+                        <%}
+                            else
+                            { %>
                         <a href="Registro.aspx">Registrarse</a>
                         <a href="Login.aspx">Ingresar</a>
+                        <% }%>
+                        <asp:Image runat="server" ID="imgAvatar" style="height:40px; width:40px; border-radius:50%" />
                     </div>
-                    <% }%>
                 </div>
             </div>
 

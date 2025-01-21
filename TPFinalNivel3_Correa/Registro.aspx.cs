@@ -23,6 +23,10 @@ namespace TPFinalNivel3_Correa
 		{
 			try
 			{
+				Page.Validate();
+				if (!Page.IsValid)
+					return;
+
 				Usuario usuario = new Usuario();
 				UsuarioNegocio negocio = new UsuarioNegocio();
 

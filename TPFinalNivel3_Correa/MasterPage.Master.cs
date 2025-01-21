@@ -15,16 +15,26 @@ namespace TPFinalNivel3_Correa
 		{
 			if (!IsPostBack)
 			{
+				imgAvatar.ImageUrl = "https://imgs.search.brave.com/UoEGoEVhpqRO83GQUva4-8Xw_r1PhAGKGtCKmb9aaDA/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzA4Lzc1LzQ1Lzk3/LzM2MF9GXzg3NTQ1/OTcxOV84aTdKM2F0/R2JzRG9SUFQwWlcw/RGpCcGdBRlZUcktB/ZS5qcGc";
+
 				if(!(Page is Default || Page is Registro || Page is Login || Page is Detalle))
 				{
 					if (!Seguridad.sesionActiva(Session["sesionAbierta"]))
 					{
 						Response.Redirect("Login.aspx", false);
 					}
+					else
+					{
+						Usuario usuario = (Usuario)Session["sesionAbierta"];
+						if (!string.IsNullOrEmpty(usuario.ImagenPerfil))
+							imgAvatar.ImageUrl = "~/Imagenes/Perfil/" + usuario.ImagenPerfil;
+					}
 				}
-				else
+				else if((Page is Default || Page is Detalle) && Seguridad.sesionActiva(Session["sesionAbierta"]))
 				{
 					Usuario usuario = (Usuario)Session["sesionAbierta"];
+					if (!string.IsNullOrEmpty(usuario.ImagenPerfil))
+						imgAvatar.ImageUrl = "~/Imagenes/Perfil/" + usuario.ImagenPerfil;
 				}
 			}
 		}

@@ -16,5 +16,12 @@ namespace TPFinalNivel3_Correa.negocio
 			else
 				return false;
 		}
+
+		public static bool verificarAdmin(object usuarioAdmin)
+		{
+			Usuario admin = usuarioAdmin != null ? (Usuario)usuarioAdmin : null;
+			return admin != null ? admin.Admin : false;
+
+		}
 	}
 }

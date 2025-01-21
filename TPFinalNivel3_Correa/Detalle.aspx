@@ -11,7 +11,12 @@
                         <div class="card-body">
                             <h5 class="card-title"><%#Eval("Nombre")%></h5>
                             <p class="card-text"><%#Eval("Descripcion")%></p>
+                            <p class="card-text">$ <%#String.Format("{0:F2}", Eval("Precio"))%></p>
+                            <%if (TPFinalNivel3_Correa.negocio.Seguridad.sesionActiva(Session["sesionAbierta"]))
+                                {%>
                             <asp:Button runat="server" ID="btnFavoritos" Text="Agregar a favoritos" CssClass="btn btn-success" CommandArgument='<%#Eval("Id")%>' CommandName="ArticuloId" OnClick="btnFavoritos_Click" />
+                            <asp:Label runat="server" ID="lblFavoritos" Text="" Visible="false" CssClass="alert alert-info" />
+                            <%} %>
                         </div>
                     </div>
                 </div>

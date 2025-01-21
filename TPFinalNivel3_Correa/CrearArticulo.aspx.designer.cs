@@ -51,6 +51,87 @@ namespace TPFinalNivel3_Correa
 		protected global::System.Web.UI.UpdatePanel UpdatePanelDDL;
 
 		/// <summary>
+		/// Control chkAgregarMyC.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.CheckBox chkAgregarMyC;
+
+		/// <summary>
+		/// Control lblAgregarMarca.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Label lblAgregarMarca;
+
+		/// <summary>
+		/// Control tbxAgregarMarca.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox tbxAgregarMarca;
+
+		/// <summary>
+		/// Control btnAgregarMarca.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnAgregarMarca;
+
+		/// <summary>
+		/// Control lblMarcaAgregada.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Label lblMarcaAgregada;
+
+		/// <summary>
+		/// Control lblAgregarCategoria.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Label lblAgregarCategoria;
+
+		/// <summary>
+		/// Control tbxAgregarCategoria.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.TextBox tbxAgregarCategoria;
+
+		/// <summary>
+		/// Control btnAgregarCategoria.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnAgregarCategoria;
+
+		/// <summary>
+		/// Control lblCategoriaAgregada.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Label lblCategoriaAgregada;
+
+		/// <summary>
 		/// Control ddlMarca.
 		/// </summary>
 		/// <remarks>
@@ -114,15 +195,6 @@ namespace TPFinalNivel3_Correa
 		protected global::System.Web.UI.WebControls.Image artImagen;
 
 		/// <summary>
-		/// Control btnOcultar.
-		/// </summary>
-		/// <remarks>
-		/// Campo generado automáticamente.
-		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.Button btnOcultar;
-
-		/// <summary>
 		/// Control btnCrearArt.
 		/// </summary>
 		/// <remarks>
@@ -139,5 +211,14 @@ namespace TPFinalNivel3_Correa
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.Button btnCancelarArt;
+
+		/// <summary>
+		/// Control btnOcultar.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.Button btnOcultar;
 	}
 }

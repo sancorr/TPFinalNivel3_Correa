@@ -71,7 +71,9 @@
     <Content Include="CrearArticulo.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Detalle.aspx" />
+    <Content Include="Error.aspx" />
     <Content Include="Favoritos.aspx" />
+    <Content Include="Global.asax" />
     <Content Include="Listado.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MiPerfil.aspx" />
@@ -107,16 +109,27 @@
     <Compile Include="Detalle.aspx.designer.cs">
       <DependentUpon>Detalle.aspx</DependentUpon>
     </Compile>
+    <Compile Include="dominio\ArtFavorito.cs" />
     <Compile Include="dominio\Articulo.cs" />
     <Compile Include="dominio\CategoriaArticulo.cs" />
     <Compile Include="dominio\MarcaArticulo.cs" />
     <Compile Include="dominio\Usuario.cs" />
+    <Compile Include="Error.aspx.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Error.aspx.designer.cs">
+      <DependentUpon>Error.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Favoritos.aspx.cs">
       <DependentUpon>Favoritos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Favoritos.aspx.designer.cs">
       <DependentUpon>Favoritos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Listado.aspx.cs">
       <DependentUpon>Listado.aspx</DependentUpon>

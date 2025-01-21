@@ -5,18 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using dominio;
+using TPFinalNivel3_Correa.dominio;
 
 namespace negocio
 {
-    public class ArticuloNegocio
-    {
-		
-        //METODOS DE ACCESO A DATOS PARA LOS ARTICULOS
+	public class ArticuloNegocio
+	{
 
-        //1)LISTAR ARTICULOS DESDE DB
-        public List<Articulo> listar(string id = "")
+		//METODOS DE ACCESO A DATOS PARA LOS ARTICULOS
+
+		//1)LISTAR ARTICULOS DESDE DB
+		public List<Articulo> listar(string id = "")
 		{
-            List<Articulo> lista = new List<Articulo>();
+			List<Articulo> lista = new List<Articulo>();
 			AccesoDatos datos = new AccesoDatos();
 			string consulta = "select A.Id, Codigo, Nombre, A.Descripcion, ImagenUrl, Precio, C.Descripcion Categoria, M.Descripcion Marca, A.IdMarca, A.IdCategoria from ARTICULOS A, CATEGORIAS C, MARCAS M where A.IdCategoria = C.Id AND A.IdMarca = M.Id AND Nombre NOT LIKE 'ELIMINADO%' ";
 
@@ -42,7 +43,7 @@ namespace negocio
 
 					aux.Categoria = new CategoriaArticulo();
 					aux.Categoria.Id = (int)datos.Lector["IdCategoria"];
-					aux.Categoria.Descripcion = datos.Lector["Categoria"] is DBNull ? null :  (string)datos.Lector["Categoria"];
+					aux.Categoria.Descripcion = datos.Lector["Categoria"] is DBNull ? null : (string)datos.Lector["Categoria"];
 
 					aux.ImagenUrl = datos.Lector["ImagenUrl"] is DBNull ? null : (string)datos.Lector["ImagenUrl"];
 					aux.Precio = (decimal)datos.Lector["Precio"];
@@ -81,8 +82,8 @@ namespace negocio
 				datos.cerrarConexion();
 			}
 		}
-		
-		//4) AGREGAR REGISTROS A LA BASE DE DATOS
+
+		//3) AGREGAR REGISTROS A LA BASE DE DATOS
 		public void agregarArticulo(Articulo articulo)
 		{
 			AccesoDatos datos = new AccesoDatos();
@@ -110,7 +111,7 @@ namespace negocio
 			}
 		}
 
-		//5) MODIFICAR REGISTROS EN LA BASE DE DATOS
+		//4) MODIFICAR REGISTROS EN LA BASE DE DATOS
 		public void modificarArticulo(Articulo articulo)
 		{
 			AccesoDatos datos = new AccesoDatos();
@@ -138,7 +139,7 @@ namespace negocio
 			}
 		}
 
-		//6) ELIMINAR REGISTROS EN LA BASE DE DATOS
+		//5) ELIMINAR REGISTROS EN LA BASE DE DATOS
 		public void eliminarArticulo(int id)
 		{
 			AccesoDatos datos = new AccesoDatos();
@@ -157,8 +158,8 @@ namespace negocio
 				datos.cerrarConexion();
 			}
 		}
-	
-		//7) LISTAR ARTICULOS ELIMINADOS (INACTIVOS)
+
+		//6) LISTAR ARTICULOS ELIMINADOS (INACTIVOS)
 		public List<Articulo> listarEliminados()
 		{
 			List<Articulo> listaEliminados = new List<Articulo>();
@@ -201,8 +202,8 @@ namespace negocio
 				datos.cerrarConexion();
 			}
 		}
-	
-		//8) REACTIVAR UN REGISTRO
+
+		//7) REACTIVAR UN REGISTRO
 		public void reactivarArticulo(int id)
 		{
 			AccesoDatos datos = new AccesoDatos();
@@ -223,21 +224,7 @@ namespace negocio
 			}
 		}
 
-		//9) AGREGAR A FAVORITOS
-		public void agregarFavoritos(int id)
-		{
-			AccesoDatos datos = new AccesoDatos();
-			try
-			{
-				datos.setConsulta("UPDATE SET FAVORITOS ");
-			}
-			catch (Exception ex)
-			{
-
-				throw ex;
-			}
-		}
-		//10) LISTAR MARCAS PARA FILTRO
+		//8) LISTAR MARCAS PARA FILTRO
 		public List<MarcaArticulo> listadoMarcas()
 		{
 			List<MarcaArticulo> marcas = new List<MarcaArticulo>();
@@ -265,7 +252,7 @@ namespace negocio
 				throw ex;
 			}
 		}
-		//11) LISTAR CATEGORIAS PARA FILTRO
+		//9) LISTAR CATEGORIAS PARA FILTRO
 		public List<CategoriaArticulo> listadoCategorias()
 		{
 			List<CategoriaArticulo> categorias = new List<CategoriaArticulo>();
@@ -292,7 +279,7 @@ namespace negocio
 				throw ex;
 			}
 		}
-		//12) FILTRAR PRODUCTOS EN DB
+		//10) FILTRAR PRODUCTOS EN DB
 		public List<Articulo> filtroProductos(string campo, string criterio, string filtro)
 		{
 			List<Articulo> listaFiltrada = new List<Articulo>();
@@ -377,8 +364,132 @@ namespace negocio
 			finally
 			{
 				datos.cerrarConexion();
-			}	
+			}
 
+		}
+		//11) INSERTAR ARTICULO EN FAVORITOS
+		public void agregarFavorito(int idUser, int idArt)
+		{
+			AccesoDatos datos = new AccesoDatos();
+			try
+			{
+				datos.setConsulta("INSERT INTO FAVORITOS (IdUser, IdArticulo) values (@idUser, @idArticulo)");
+				datos.setParametros("idUser", idUser);
+				datos.setParametros("idArticulo", idArt);
+				datos.ejecutarAccion();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+		//12) LISTAR FAVORITOS
+		public List<Articulo> listarFavoritos(int idUser, string idArt = "")
+		{
+			AccesoDatos datos = new AccesoDatos();
+			List<Articulo> favoritos = new List<Articulo>();
+			try
+			{
+				//string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.ImagenUrl, A.Precio, F.IdUser, F.IdArticulo, F.Id, U.Id from ARTICULOS A, FAVORITOS F, USERS U WHERE F.IdUser = @IdUser ";
+				string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.ImagenUrl, A.Precio, F.IdUser, F.IdArticulo, F.Id FROM ARTICULOS A INNER JOIN FAVORITOS F ON A.Id = F.IdArticulo WHERE F.IdUser = @IdUser ";
+
+				if (idArt != "")
+					datos.setConsulta(consulta + " AND F.IdArticulo =" + idArt);
+				else
+					datos.setConsulta(consulta);
+
+				datos.setParametros("@IdUser", idUser);
+				datos.ejecutarLectura();
+
+				while (datos.Lector.Read())
+				{
+					Articulo aux = new Articulo();
+					aux.Id = (int)datos.Lector["Id"];
+					aux.Codigo = datos.Lector["Codigo"] is DBNull ? null : (string)datos.Lector["Codigo"];
+					aux.Nombre = datos.Lector["Nombre"] is DBNull ? null : (string)datos.Lector["Nombre"];
+					aux.Descripcion = datos.Lector["Descripcion"] is DBNull ? null : (string)datos.Lector["Descripcion"];
+
+					aux.ImagenUrl = datos.Lector["ImagenUrl"] is DBNull ? null : (string)datos.Lector["ImagenUrl"];
+					aux.Precio = (decimal)datos.Lector["Precio"];
+
+					aux.Favorito = new ArtFavorito();
+					aux.Favorito.Id = (int)datos.Lector["Id"];
+					aux.Favorito.IdUser = (int)datos.Lector["IdUser"];
+					aux.Favorito.IdArticulo = (int)datos.Lector["IdArticulo"];
+
+					favoritos.Add(aux);
+				}
+				return favoritos;
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+		//13) ELIMNAR FAVORITO
+		public void eliminarFavorito(int id)
+		{
+			AccesoDatos datos = new AccesoDatos();
+			try
+			{
+				datos.setConsulta("delete from FAVORITOS where IdArticulo = @id");
+				datos.setParametros("@id", id);
+				datos.ejecutarAccion();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+		//14) AGREGAR MARCA
+		public void agregarMarca(string marca)
+		{
+			AccesoDatos datos = new AccesoDatos();
+			try
+			{
+				datos.setConsulta("INSERT INTO MARCAS values (@marca)");
+				datos.setParametros("@marca", marca);
+				datos.ejecutarAccion();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
+		}
+		//15) AGREGAR CATEGORIA
+		public void agregarCategoria(string categoria)
+		{
+			AccesoDatos datos = new AccesoDatos();
+			try
+			{
+				datos.setConsulta("INSERT INTO CATEGORIAS values (@categoria)");
+				datos.setParametros("@categoria", categoria);
+				datos.ejecutarAccion();
+			}
+			catch (Exception ex)
+			{
+				throw ex;
+			}
+			finally
+			{
+				datos.cerrarConexion();
+			}
 		}
 	}
 }

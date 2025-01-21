@@ -71,8 +71,10 @@ namespace TPFinalNivel3_Correa.negocio
 			AccesoDatos datos = new AccesoDatos();
 			try
 			{
-				datos.setConsulta("UPDATE USERS SET urlImagenPerfil = @imagen Where Id = @id");
-				datos.setParametros("@imagen", usuario.ImagenPerfil);
+				datos.setConsulta("UPDATE USERS SET nombre = @nombre, apellido = @apellido, urlImagenPerfil = @imagen Where Id = @id");
+				datos.setParametros("@nombre", (object)usuario.Nombre ?? DBNull.Value);
+				datos.setParametros("@apellido", (object)usuario.Apellido ?? DBNull.Value);
+				datos.setParametros("@imagen", (object)usuario.ImagenPerfil ?? DBNull.Value);
 				datos.setParametros("@id", usuario.Id);
 				datos.ejecutarAccion();
 			}

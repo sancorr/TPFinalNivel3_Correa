@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Label runat="server" Text="" Visible="false" ID="lblMensaje" />
     <div class="row">
         <asp:Repeater runat="server" ID="repeaterFavoritos">
             <itemtemplate>

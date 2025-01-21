@@ -10,19 +10,19 @@
             <div class="mb-3">
                 <asp:Label runat="server" ID="lblEmail" for="tbxEmail" Text="Email:" CssClass="form-label"></asp:Label>
                 <asp:TextBox runat="server" ID="tbxEmail" CssClass="form-control" placeholder="name@ejemplo.com"></asp:TextBox>
-                <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="tbxEmail" ErrorMessage="Email es requerido"/>--%>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="tbxEmail" ErrorMessage="Email es requerido"/>
             </div>
 
             <div class="mb-3">
                 <asp:Label runat="server" ID="lblNombre" for="tbxNombre" Text="Nombre:" CssClass="form-label"></asp:Label>
                 <asp:TextBox runat="server" ID="tbxNombre" CssClass="form-control" placeholder="Jonh"></asp:TextBox>
-                <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="tbxNombre" ErrorMessage="Nombre es requerido"/>--%>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="tbxNombre" ErrorMessage="Nombre es requerido"/>
             </div>
 
             <div class="mb-3">
                 <asp:Label runat="server" ID="lblApellido" for="tbxApellido" Text="Apellido:" CssClass="form-label"></asp:Label>
                 <asp:TextBox runat="server" ID="tbxApellido" CssClass="form-control" placeholder="Doe"></asp:TextBox>
-                <%--<asp:RequiredFieldValidator runat="server" ControlToValidate="tbxApellido" ErrorMessage="Apellido es requerido"/>--%>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="tbxApellido" ErrorMessage="Apellido es requerido"/>
             </div>
         </div>
 

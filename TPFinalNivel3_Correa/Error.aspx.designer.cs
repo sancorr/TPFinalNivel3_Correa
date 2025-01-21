@@ -11,25 +11,16 @@ namespace TPFinalNivel3_Correa
 {
 
 
-	public partial class Favoritos
+	public partial class Error
 	{
 
 		/// <summary>
-		/// Control lblMensaje.
+		/// Control lblError.
 		/// </summary>
 		/// <remarks>
 		/// Campo generado automáticamente.
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
-		protected global::System.Web.UI.WebControls.Label lblMensaje;
-
-		/// <summary>
-		/// Control repeaterFavoritos.
-		/// </summary>
-		/// <remarks>
-		/// Campo generado automáticamente.
-		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-		/// </remarks>
-		protected global::System.Web.UI.WebControls.Repeater repeaterFavoritos;
+		protected global::System.Web.UI.WebControls.Label lblError;
 	}
 }

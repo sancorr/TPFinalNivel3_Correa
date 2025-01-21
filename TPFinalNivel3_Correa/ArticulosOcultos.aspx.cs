@@ -31,6 +31,7 @@ namespace TPFinalNivel3_Correa
 				if (!IsPostBack)
 				{
 					ListaOcultos = negocio.listarEliminados();
+
 					if (ListaOcultos.Count < 1)
 					{
 						renderLabel("No hay articulos para mostrar...");

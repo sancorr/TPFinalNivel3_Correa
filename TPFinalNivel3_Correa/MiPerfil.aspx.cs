@@ -19,9 +19,12 @@ namespace TPFinalNivel3_Correa
 				{
 					if (Seguridad.sesionActiva(Session["sesionAbierta"]))
 					{
+
 						Usuario usuario = (Usuario)Session["sesionAbierta"];
 						tbxNombre.Text = usuario.Nombre;
 						tbxApellido.Text = usuario.Apellido;
+						if (!string.IsNullOrEmpty(usuario.ImagenPerfil))
+							imagenPerfil.ImageUrl = "~/Imagenes/Perfil/" + usuario.ImagenPerfil;
 						tbxEmail.Text = usuario.Email;
 						tbxEmail.ReadOnly = true;
 					}
@@ -37,16 +40,27 @@ namespace TPFinalNivel3_Correa
 		{
 			try
 			{
+				Page.Validate();
+				if (!Page.IsValid)
+					return;
+
 				Usuario usuario = (Usuario)Session["sesionAbierta"];
 				UsuarioNegocio negocio = new UsuarioNegocio();
-				if(tbxImagenPerfil.PostedFile.FileName != "")
+
+				usuario.Nombre = tbxNombre.Text;
+				usuario.Apellido = tbxApellido.Text;
+
+				if (tbxImagenPerfil.PostedFile.FileName != "")
 				{
 					string path = Server.MapPath("./Imagenes/Perfil/");
 					tbxImagenPerfil.PostedFile.SaveAs(path + "FotoPerfil-" + usuario.Id + ".jpg");
 					usuario.ImagenPerfil = "FotoPerfil-" + usuario.Id + ".jpg";
-
-					negocio.actualizarUsuario(usuario);
 				}
+
+				negocio.actualizarUsuario(usuario);
+
+				Image avatar = (Image)Master.FindControl("imgAvatar");
+				avatar.ImageUrl = "~/Imagenes/Perfil/" + usuario.ImagenPerfil;
 			}
 			catch (Exception ex)
 			{

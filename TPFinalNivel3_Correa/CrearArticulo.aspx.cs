@@ -6,20 +6,21 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using negocio;
 using dominio;
+
 namespace TPFinalNivel3_Correa
 {
 	public partial class CrearArticulo : System.Web.UI.Page
 	{
 		public List<CategoriaArticulo> ListaCategorias { get; set; }
 		public List<MarcaArticulo> ListaMarcas { get; set; }
-		public bool Eliminar { get; set; }
+		public bool AgregarMyC { get; set; }
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			try
 			{
+				AgregarMyC = false;
 				CategoriaArticuloNegocio catArtNegocio = new CategoriaArticuloNegocio();
 				MarcaArticuloNegocio marArtNegocio = new MarcaArticuloNegocio();
-				Eliminar = false;
 
 				if (!IsPostBack)
 				{
@@ -37,6 +38,8 @@ namespace TPFinalNivel3_Correa
 					ddlMarca.DataBind();
 				}
 
+				btnOcultar.Visible = false;
+
 				//modificacion
 				string id = Request.QueryString["id"] != null ? Request.QueryString["id"].ToString() : "";
 
@@ -45,7 +48,7 @@ namespace TPFinalNivel3_Correa
 					ArticuloNegocio negocio = new ArticuloNegocio();
 					List<Articulo> lista = negocio.listar(id);
 					Articulo seleccionado = lista[0];
-					Eliminar = true;
+					AgregarMyC = false;
 
 					//precargar los campos del formulario
 					tbxCodigo.Text = seleccionado.Codigo;
@@ -56,6 +59,8 @@ namespace TPFinalNivel3_Correa
 					ddlMarca.SelectedValue = seleccionado.Marca.Id.ToString();
 					ddlCategoria.SelectedValue = seleccionado.Categoria.Id.ToString();
 					tbxImagen_TextChanged(sender, e);
+
+					btnOcultar.Visible = true;
 				}
 			}
 			catch (Exception ex)
@@ -70,6 +75,9 @@ namespace TPFinalNivel3_Correa
 		{
 			try
 			{
+				Page.Validate();
+				if (!Page.IsValid)
+					return;
 				//crear articulo
 				//Faltan Las VALIDACIONES DE LOS CAMPOS Y METODOS PARA EVITAR DATOS REPETIDOS EN DB.
 				ArticuloNegocio negocio = new ArticuloNegocio();
@@ -117,15 +125,19 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				//Redireccion a error pendiente
-				Session.Add("error", "Error al direccionar");
-				throw;
+				Session.Add("error", "Error al direccionar ");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 
 		protected void tbxImagen_TextChanged(object sender, EventArgs e)
 		{
 			artImagen.ImageUrl = tbxImagen.Text;
+
+			if (!tbxImagen.Text.Contains("http"))
+			{
+				artImagen.ImageUrl = "https://imgs.search.brave.com/TvImnNqSmkLvWLy9Y1Hkith2FQJECMibPyhZ122wNb0/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/dmVjdG9yLWdyYXRp/cy9pbHVzdHJhY2lv/bi1jb25jZXB0by1j/YXJwZXRhLWltYWdl/bmVzXzExNDM2MC0x/MTQuanBnP3NlbXQ9/YWlzX2h5YnJpZA";
+			}
 		}
 
 		protected void btnOcultar_Click(object sender, EventArgs e)
@@ -149,6 +161,107 @@ namespace TPFinalNivel3_Correa
 				//REDIRECCION A ERROR
 				Session.Add("error", ex);
 				throw;
+			}
+		}
+
+		protected void chkAgregarMyC_CheckedChanged(object sender, EventArgs e)
+		{
+			try
+			{
+				AgregarMyC = true;
+			}
+			catch (Exception ex)
+			{
+				Session.Add("error", ex.ToString());
+				Response.Redirect("Error.aspx", false);
+			}
+		}
+
+		protected void btnAgregarMarca_Click(object sender, EventArgs e)
+		{
+			MarcaArticuloNegocio negocioMarca = new MarcaArticuloNegocio();
+			ArticuloNegocio negocio = new ArticuloNegocio();
+
+			try
+			{
+				if (!string.IsNullOrEmpty(tbxAgregarMarca.Text))
+				{
+					ListaMarcas = negocioMarca.listar();
+					var marcaExistente = ListaMarcas.Find(x => x.Descripcion.ToLower() == tbxAgregarMarca.Text.ToLower());
+
+					if(marcaExistente == null)
+					{
+						negocio.agregarMarca(tbxAgregarMarca.Text);
+
+						ListaMarcas = negocioMarca.listar();
+						ddlMarca.DataSource = ListaMarcas;
+						ddlMarca.DataValueField = "Id";
+						ddlMarca.DataTextField = "Descripcion";
+						ddlMarca.DataBind();
+
+						lblMarcaAgregada.Text = "Marca agregada con éxito";
+						lblMarcaAgregada.Visible = true;
+					}
+					else
+					{
+						lblMarcaAgregada.Text = "¡Esa marca ya existe!";
+						lblMarcaAgregada.Visible = true;
+					}
+				}
+				else
+				{
+					lblMarcaAgregada.Text = "El campo MARCA es requerido";
+					lblMarcaAgregada.Visible = true;
+				}
+			}
+			catch (Exception ex)
+			{
+				Session.Add("error", ex.ToString());
+				Response.Redirect("Error.aspx", false);
+			}
+		}
+
+		protected void btnAgregarCategoria_Click(object sender, EventArgs e)
+		{
+			CategoriaArticuloNegocio negocioCategoria = new CategoriaArticuloNegocio();
+			ArticuloNegocio negocio = new ArticuloNegocio();
+			try
+			{
+				if (!string.IsNullOrEmpty(tbxAgregarCategoria.Text))
+				{
+					ListaCategorias = negocioCategoria.listar();
+					var categoriaExistente = ListaCategorias.Find(x => x.Descripcion.ToLower() == tbxAgregarCategoria.Text.ToLower());
+
+					if(categoriaExistente == null)
+					{
+						negocio.agregarCategoria(tbxAgregarCategoria.Text);
+
+						ListaCategorias = negocioCategoria.listar();
+						ddlCategoria.DataSource = ListaCategorias;
+						ddlCategoria.DataValueField = "Id";
+						ddlCategoria.DataTextField = "Descripcion";
+						ddlCategoria.DataBind();
+
+						lblCategoriaAgregada.Text = "Categoria agregada con éxito";
+						lblCategoriaAgregada.Visible = true;
+					}
+					else
+					{
+						lblCategoriaAgregada.Text = "¡Esa categoria ya existe!";
+						lblCategoriaAgregada.Visible = true;
+					}
+				}
+				else
+				{
+					lblCategoriaAgregada.Text = "El campo CATEGORIA es requerido";
+					lblCategoriaAgregada.Visible = true;
+				}
+
+			}
+			catch (Exception ex)
+			{
+				Session.Add("error", ex.ToString());
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 	}

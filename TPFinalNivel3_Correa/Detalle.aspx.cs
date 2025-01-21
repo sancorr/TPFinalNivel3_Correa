@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using negocio;
 using dominio;
+using TPFinalNivel3_Correa.dominio;
 
 namespace TPFinalNivel3_Correa
 {
@@ -42,8 +43,28 @@ namespace TPFinalNivel3_Correa
 
 		protected void btnFavoritos_Click(object sender, EventArgs e)
 		{
-			//string idArticulo = ((Button)sender).CommandArgument;
-			//Response.Redirect("Favoritos.aspx?id=" + idArticulo, false);
+			//ID del articulo proveniente del boton
+			string idArticulo = ((Button)sender).CommandArgument;
+			//ID del usuario de la session
+			Usuario usuario = (Usuario)Session["sesionAbierta"];
+			try
+			{
+				ArticuloNegocio negocio = new ArticuloNegocio();
+				Button btn = (Button)sender;
+				RepeaterItem i = (RepeaterItem)btn.NamingContainer;
+				Label lblFavoritos = (Label)i.FindControl("lblFavoritos");
+
+				negocio.agregarFavorito(usuario.Id, int.Parse(idArticulo));
+
+				lblFavoritos.Text = "¡Agregado a Favoritos!";
+				lblFavoritos.Visible = true;
+				
+			}
+			catch (Exception ex)
+			{
+				Session.Add("error", ex.ToString());
+				Response.Redirect("Error.aspx", false);
+			}
 		}
 	}
 }
