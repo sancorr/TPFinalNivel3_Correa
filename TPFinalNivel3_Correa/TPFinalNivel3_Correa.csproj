@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="ArticulosOcultos.aspx" />
     <Content Include="CrearArticulo.aspx" />
+    <Content Include="Css\Estilos.css" />
     <Content Include="Default.aspx" />
     <Content Include="Detalle.aspx" />
     <Content Include="Error.aspx" />

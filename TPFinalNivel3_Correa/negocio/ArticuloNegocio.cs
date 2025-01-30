@@ -394,7 +394,6 @@ namespace negocio
 			List<Articulo> favoritos = new List<Articulo>();
 			try
 			{
-				//string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.ImagenUrl, A.Precio, F.IdUser, F.IdArticulo, F.Id, U.Id from ARTICULOS A, FAVORITOS F, USERS U WHERE F.IdUser = @IdUser ";
 				string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.ImagenUrl, A.Precio, F.IdUser, F.IdArticulo, F.Id FROM ARTICULOS A INNER JOIN FAVORITOS F ON A.Id = F.IdArticulo WHERE F.IdUser = @IdUser ";
 
 				if (idArt != "")
@@ -435,13 +434,14 @@ namespace negocio
 			}
 		}
 		//13) ELIMNAR FAVORITO
-		public void eliminarFavorito(int id)
+		public void eliminarFavorito(int id, int userId)
 		{
 			AccesoDatos datos = new AccesoDatos();
 			try
 			{
-				datos.setConsulta("delete from FAVORITOS where IdArticulo = @id");
+				datos.setConsulta("delete from FAVORITOS where IdArticulo = @id AND IdUser = @userId");
 				datos.setParametros("@id", id);
+				datos.setParametros("@userId", userId);
 				datos.ejecutarAccion();
 			}
 			catch (Exception ex)

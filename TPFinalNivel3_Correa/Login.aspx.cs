@@ -13,9 +13,6 @@ namespace TPFinalNivel3_Correa
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (!IsPostBack)
-			{
-			}
 		}
 
 		protected void btnIngreso_Click(object sender, EventArgs e)
@@ -39,15 +36,22 @@ namespace TPFinalNivel3_Correa
 				}
 				else
 				{
-					Session.Add("error", "Usuario o contraseña invalidos");
+					Session.Add("error", "Usuario o contraseña inválidos");
 					Response.Redirect("Error.aspx", false);
 				}
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al cargar la página");
 				Response.Redirect("Error.aspx", false);
 			}
+		}
+		private void Page_Error(object sender, EventArgs e)
+		{
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
 		}
 	}
 }

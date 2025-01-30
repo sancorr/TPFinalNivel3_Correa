@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TPFinalNivel3_Correa.Login" %>
+﻿<%@ Page Title="SAC-NET | Ingresar" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TPFinalNivel3_Correa.Login" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -10,7 +10,8 @@
                 <div class="mb-3">
                     <asp:Label for="tbxEmailIngreso" runat="server" CssClass="form-label">Email</asp:Label>
                     <asp:TextBox CssClass="form-control" runat="server" ID="tbxEmailIngreso" placeholder="Nombre@ejemplo.com" />
-                     <asp:RequiredFieldValidator runat="server" ControlToValidate="tbxEmailIngreso" ErrorMessage="Email es requerido" />
+                    <asp:RequiredFieldValidator runat="server" ControlToValidate="tbxEmailIngreso" ErrorMessage="Email es requerido" />
+                    <asp:RegularExpressionValidator runat="server" ControlToValidate="tbxEmailIngreso" ErrorMessage="Formato email incorrecto" ValidationExpression="^[^@\s]+@[^@\s]+\.[^@\s]+$"></asp:RegularExpressionValidator>
                 </div>
 
                 <div class="mb-3">

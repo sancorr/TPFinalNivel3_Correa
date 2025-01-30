@@ -38,12 +38,13 @@ namespace TPFinalNivel3_Correa
 					}
 					else
 					{
-						//mensaje de error
+						Session.Add("error", "Error al cargar la página");
+						Response.Redirect("Error.aspx", false);
 					}
 				}
 				catch (Exception ex)
 				{
-					Session.Add("error", ex.ToString());
+					Session.Add("error", "Error al cargar la página");
 					Response.Redirect("Error.aspx", false);
 				}
 			}
@@ -61,8 +62,8 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex);
-				//REDIRECCIONAR A ERROR
+				Session.Add("error", "Error al cargar la página");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 
@@ -74,9 +75,8 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				//Redireccionar a ERROR
-				Session.Add("error", ex);
-				throw;
+				Session.Add("error", "Error al redireccionar.");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 
@@ -88,9 +88,16 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al redireccionar");
 				Response.Redirect("Error.aspx", false);
 			}
+		}
+		private void Page_Error(object sender, EventArgs e)
+		{
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
 		}
 	}
 }

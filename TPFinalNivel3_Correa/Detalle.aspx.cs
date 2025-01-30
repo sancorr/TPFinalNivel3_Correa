@@ -30,22 +30,23 @@ namespace TPFinalNivel3_Correa
 					}
 					else
 					{
-						//mensaje de error
+						Session.Add("error", "Error al cargar la página");
+						Response.Redirect("Error.aspx", false);
 					}
 				}
 				catch (Exception ex)
 				{
-					//Vista de error
-					throw ex;
+					Session.Add("error", "Error al cargar la página");
+					Response.Redirect("Error.aspx", false);
 				}
 			}
 		}
 
 		protected void btnFavoritos_Click(object sender, EventArgs e)
 		{
-			//ID del articulo proveniente del boton
+			
 			string idArticulo = ((Button)sender).CommandArgument;
-			//ID del usuario de la session
+			
 			Usuario usuario = (Usuario)Session["sesionAbierta"];
 			try
 			{
@@ -54,17 +55,34 @@ namespace TPFinalNivel3_Correa
 				RepeaterItem i = (RepeaterItem)btn.NamingContainer;
 				Label lblFavoritos = (Label)i.FindControl("lblFavoritos");
 
-				negocio.agregarFavorito(usuario.Id, int.Parse(idArticulo));
+				Articulo artExistenteFav = negocio.listarFavoritos(usuario.Id, idArticulo).Find(x => x.Id == int.Parse(idArticulo));
 
-				lblFavoritos.Text = "¡Agregado a Favoritos!";
-				lblFavoritos.Visible = true;
+				if(artExistenteFav == null)
+				{
+					negocio.agregarFavorito(usuario.Id, int.Parse(idArticulo));
+					lblFavoritos.Text = "¡Agregado a Favoritos!";
+					lblFavoritos.Visible = true;
+				}
+				else
+				{
+					lblFavoritos.Text = "¡Ese articulo ya existe en Favoritos!";
+					lblFavoritos.Visible = true;
+				}
 				
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al agregar a favoritos");
 				Response.Redirect("Error.aspx", false);
 			}
+		}
+
+		private void Page_Error(object sender, EventArgs e)
+		{
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
 		}
 	}
 }

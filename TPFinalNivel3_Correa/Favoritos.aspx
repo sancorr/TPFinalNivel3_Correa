@@ -1,8 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Favoritos.aspx.cs" Inherits="TPFinalNivel3_Correa.Favoritos" %>
+﻿<%@ Page Title="SAC-NET | Favoritos" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Favoritos.aspx.cs" Inherits="TPFinalNivel3_Correa.Favoritos" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <asp:Label runat="server" Text="" Visible="false" ID="lblMensaje" />
+    <div class="container d-flex justify-content-center">
+        <asp:Label runat="server" Text="" Visible="false" ID="lblMensaje" CssClass="alert alert-danger w-80 text-center"/>
+    </div>
     <div class="row">
         <asp:Repeater runat="server" ID="repeaterFavoritos">
             <itemtemplate>

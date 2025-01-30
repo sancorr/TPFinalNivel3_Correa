@@ -11,12 +11,22 @@ namespace TPFinalNivel3_Correa
 {
 	public partial class Registro : System.Web.UI.Page
 	{
+		private bool UserAdmin
+		{
+			get
+			{
+				return Session["UserAdmin"] != null ? (bool)Session["UserAdmin"] : false;
+			}
+			set
+			{
+				Session["UserAdmin"] = value;
+			}
+		}
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			if (!IsPostBack)
-			{
-
-			}
+				UserAdmin = false;
 		}
 
 		protected void btnRegistro_Click(object sender, EventArgs e)
@@ -34,16 +44,36 @@ namespace TPFinalNivel3_Correa
 				usuario.Apellido = tbxApellido.Text;
 				usuario.Email = tbxEmail.Text;
 				usuario.Pass = tbxPass.Text;
-				usuario.Id = negocio.registrarUsuario(usuario);
+
+				if (UserAdmin)
+					usuario.Id = negocio.registrarAdministrador(usuario);
+				else
+					usuario.Id = negocio.registrarUsuario(usuario);
+
+				usuario = negocio.obtenerUsuarioPorId(usuario.Id);
 
 				Session.Add("sesionAbierta", usuario);
 				Response.Redirect("MiPerfil.aspx", false);
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex);
-				throw;
+				Session.Add("error", "Error al intentar registrar el usuario");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
+
+		protected void chkAdmin_CheckedChanged(object sender, EventArgs e)
+		{
+			UserAdmin = chkAdmin.Checked;
+		}
+		private void Page_Error(object sender, EventArgs e)
+		{
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
+		}
+
+
 	}
 }

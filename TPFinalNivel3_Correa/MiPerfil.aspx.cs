@@ -32,7 +32,8 @@ namespace TPFinalNivel3_Correa
 			} 
 			catch (Exception ex)
 			{
-				Session.Add("error", "Error al cargar la pagina: " + ex.ToString());
+				Session.Add("error", "Error al cargar la página");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 
@@ -64,9 +65,37 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al intentar guardar los cambios.");
 				Response.Redirect("Error.aspx", false);
 			}
+		}
+
+		protected void btnEliminarAdmin_Click(object sender, EventArgs e)
+		{
+			UsuarioNegocio negocio = new UsuarioNegocio();
+			Usuario usuario = (Usuario)Session["sesionAbierta"];
+			try
+			{
+				negocio.quitarAdmin(usuario);
+				usuario = negocio.obtenerUsuarioPorId(usuario.Id);
+
+				Session["sesionAbierta"] = usuario;
+
+				Response.Redirect("Default.aspx", false);
+			}
+			catch (Exception ex)
+			{
+				Session.Add("error", "Error al intentar modificar el tipo de usuario.");
+				Response.Redirect("Error.aspx", false);
+			}
+		}
+
+		private void Page_Error(object sender, EventArgs e)
+		{
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
 		}
 	}
 }

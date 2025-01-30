@@ -12,10 +12,10 @@ namespace TPFinalNivel3_Correa
 	public partial class Default : System.Web.UI.Page
 	{
 		public List<Articulo> ListaArticulos { get; set; }
-		public bool Filtro { get; set; }
 
 		private void cargarCampo()
 		{
+			ddlCampo.Items.Add(new ListItem("Seleccione una opción", ""));
 			ddlCampo.Items.Add("Nombre");
 			ddlCampo.Items.Add("Categoria");
 			ddlCampo.Items.Add("Marca");
@@ -42,7 +42,21 @@ namespace TPFinalNivel3_Correa
 				return true;
 			}
 
-			if(ddlCampo.SelectedItem.ToString() == "Precio")
+			if(ddlCampo.SelectedValue == "")
+			{
+				lblError.Text = "Debe seleccionar una opción";
+				lblError.Visible = true;
+				return true;
+			}
+
+			if (ddlCriterio.SelectedValue == "")
+			{
+				lblError.Text = "Debe seleccionar un criterio de búsqueda";
+				lblError.Visible = true;
+				return true;
+			}
+
+			if (ddlCampo.SelectedItem.ToString() == "Precio")
 			{
 				if(string.IsNullOrEmpty(tbxFiltro.Text))
 				{
@@ -78,95 +92,133 @@ namespace TPFinalNivel3_Correa
 		
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-			ListaArticulos = articuloNegocio.listar();
-
-			lblError.Visible = false;
-			lblResBusqueda.Visible = false;
-			if (!IsPostBack)
+			try
 			{
-				Filtro = false;
-				cargarCampo();
+				ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+				ListaArticulos = articuloNegocio.listar();
 
-				repeaterHome.DataSource = ListaArticulos;
-				repeaterHome.DataBind();
+				lblError.Visible = false;
+				lblResBusqueda.Visible = false;
+				if (!IsPostBack)
+				{
+					cargarCampo();
+
+					repeaterHome.DataSource = ListaArticulos;
+					repeaterHome.DataBind();
+				}
 			}
+			catch (Exception)
+			{
+				Session.Add("error", "Error al cargar la página");
+				Response.Redirect("Error.aspx", false);
+			}
+			
 		}
 
 		protected void btnVerDetaller_Click(object sender, EventArgs e)
 		{
-			string idArticulo = ((Button)sender).CommandArgument;
-			Response.Redirect("Detalle.aspx?id=" + idArticulo, false);
+			try
+			{
+				string idArticulo = ((Button)sender).CommandArgument;
+				Response.Redirect("Detalle.aspx?id=" + idArticulo, false);
+			}
+			catch (Exception ex)
+			{
+				Session.Add("error", "Error al cargar la página");
+				Response.Redirect("Error.aspx", false);
+			}
 		}
 
 		protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			string opcion = ddlCampo.SelectedItem.ToString();
-			ArticuloNegocio negocio = new ArticuloNegocio();
+			try
+			{
+				string opcion = ddlCampo.SelectedItem.ToString();
+				ArticuloNegocio negocio = new ArticuloNegocio();
 
-			ddlCriterio.Items.Clear();
+				ddlCriterio.Items.Clear();
 
-			if(opcion == "Precio")
-			{
-				ddlCriterio.Items.Add("Mayor a");
-				ddlCriterio.Items.Add("Menor a");
-				ddlCriterio.Items.Add("Igual a");
-			}
-			else if(opcion == "Nombre")
-			{
-				ddlCriterio.Items.Add("Comienza con");
-				ddlCriterio.Items.Add("Contiene");
-				ddlCriterio.Items.Add("Termina con");
-			}
-			else if(opcion == "Marca")
-			{
-				foreach (var marca in negocio.listadoMarcas())
+				if (opcion == "Precio")
 				{
-					ddlCriterio.Items.Add(marca.ToString());
+					ddlCriterio.Items.Add(new ListItem("Seleccione una opción", ""));
+					ddlCriterio.Items.Add("Mayor a");
+					ddlCriterio.Items.Add("Menor a");
+					ddlCriterio.Items.Add("Igual a");
+				}
+				else if (opcion == "Nombre")
+				{
+					ddlCriterio.Items.Add(new ListItem("Seleccione una opción", ""));
+					ddlCriterio.Items.Add("Comienza con");
+					ddlCriterio.Items.Add("Contiene");
+					ddlCriterio.Items.Add("Termina con");
+				}
+				else if (opcion == "Marca")
+				{
+					foreach (var marca in negocio.listadoMarcas())
+					{
+						ddlCriterio.Items.Add(marca.ToString());
+					}
+				}
+				else if (opcion == "Categoria")
+				{
+					foreach (var categoria in negocio.listadoCategorias())
+					{
+						ddlCriterio.Items.Add(categoria.ToString());
+					}
 				}
 			}
-			else if (opcion == "Categoria")
+			catch (Exception ex)
 			{
-				foreach (var categoria in negocio.listadoCategorias())
-				{
-					ddlCriterio.Items.Add(categoria.ToString());
-				}
+				Session.Add("error", "Error inesperado, vuelva a intentar o contacte a soporte.");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 
 		protected void btnBuscarFiltro_Click(object sender, EventArgs e)
 		{
-			ArticuloNegocio negocio = new ArticuloNegocio();
-
-			if (validacionFiltro())
-				return;
-
-			string campo = ddlCampo.SelectedValue;
-			string criterio = ddlCriterio.SelectedValue;
-			string filtro = tbxFiltro.Text.ToLower();
-
-			ListaArticulos = negocio.filtroProductos(campo, criterio, filtro);
-
-			if(ListaArticulos.Count >= 1)
+			try
 			{
-				lblResBusqueda.Text = $"Se encontraron {ListaArticulos.Count} artículos";
-				lblResBusqueda.Visible = true;
-				repeaterHome.DataSource = ListaArticulos;
-				repeaterHome.DataBind();
+				ArticuloNegocio negocio = new ArticuloNegocio();
+
+				if (validacionFiltro())
+					return;
+
+				string campo = ddlCampo.SelectedValue;
+				string criterio = ddlCriterio.SelectedValue;
+				string filtro = tbxFiltro.Text.ToLower();
+
+				ListaArticulos = negocio.filtroProductos(campo, criterio, filtro);
+
+				if (ListaArticulos.Count >= 1)
+				{
+					lblResBusqueda.Text = $"Se encontraron {ListaArticulos.Count} artículos";
+					lblResBusqueda.Visible = true;
+					repeaterHome.DataSource = ListaArticulos;
+					repeaterHome.DataBind();
+				}
+				else
+				{
+					lblResBusqueda.Text = " No se encontraron artículos que coincidan con los criterios de búsqueda";
+					lblResBusqueda.Visible = true;
+					repeaterHome.DataSource = null;
+					repeaterHome.DataBind();
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				lblResBusqueda.Text = " No se encontraron artículos que coincidan con los criterios de búsqueda";
-				lblResBusqueda.Visible = true;
-				repeaterHome.DataSource = null;
-				repeaterHome.DataBind();
+				Session.Add("error", "Error al cargar la página");
+				Response.Redirect("Error.aspx", false);
 			}
+			
 
 		}
 
-		protected void chkFiltro_CheckedChanged(object sender, EventArgs e)
+		private void Page_Error(object sender, EventArgs e)
 		{
-			Filtro = true;
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
 		}
 	}
 }

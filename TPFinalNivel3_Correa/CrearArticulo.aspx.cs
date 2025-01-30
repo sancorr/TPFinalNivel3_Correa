@@ -65,9 +65,8 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				//Redireccion a error pendiente
-				Session.Add("error", ex);
-				throw;
+				Session.Add("error", "Error al cargar la página");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 
@@ -103,16 +102,25 @@ namespace TPFinalNivel3_Correa
 				}
 				else
 				{
-					negocio.agregarArticulo(art);
+					Articulo artExistente = negocio.listar().Find(x => x.Codigo.ToLower() == art.Codigo.ToLower());
+					if(artExistente == null)
+					{
+						negocio.agregarArticulo(art);
+					}
+					else
+					{
+						lblMensajeCrear.Text = "¡Ya existe un articulo con ese código!";
+						lblMensajeCrear.Visible = true;
+						return;
+					}
 				}
 
 				Response.Redirect("Listado.aspx", false);
 			}
 			catch (Exception ex)
 			{
-				//Redireccion a error pendiente
-				Session.Add("error", ex);
-				throw;
+				Session.Add("error", "Error al crear artículo");
+				Response.Redirect("Error.aspx", false);
 			}
 			
 		}
@@ -125,7 +133,7 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", "Error al direccionar ");
+				Session.Add("error", "Error al redireccionar");
 				Response.Redirect("Error.aspx", false);
 			}
 		}
@@ -153,14 +161,14 @@ namespace TPFinalNivel3_Correa
 				}
 				else
 				{
-					//MENSAJE DE ERROR AQUI
+					Session.Add("error", "Error al ocultar el artículo");
+					Response.Redirect("Error.aspx", false);
 				}
 			}
 			catch (Exception ex)
 			{
-				//REDIRECCION A ERROR
-				Session.Add("error", ex);
-				throw;
+				Session.Add("error", "Error al ocultar el artículo");
+				Response.Redirect("Error.aspx", false);
 			}
 		}
 
@@ -172,7 +180,7 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al cargar opción");
 				Response.Redirect("Error.aspx", false);
 			}
 		}
@@ -216,7 +224,7 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al intentar agregar la marca");
 				Response.Redirect("Error.aspx", false);
 			}
 		}
@@ -260,9 +268,16 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al cargar la categoria");
 				Response.Redirect("Error.aspx", false);
 			}
+		}
+		private void Page_Error(object sender, EventArgs e)
+		{
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
 		}
 	}
 }

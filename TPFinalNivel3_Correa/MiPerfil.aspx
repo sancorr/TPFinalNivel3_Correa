@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="MiPerfil.aspx.cs" Inherits="TPFinalNivel3_Correa.MiPerfil" %>
+﻿<%@ Page Title="SAC-NET | Mi perfil" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="MiPerfil.aspx.cs" Inherits="TPFinalNivel3_Correa.MiPerfil" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -36,9 +36,13 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <asp:Button runat="server" Text="Guardar cambios" CssClass="btn btn-primary" ID="btnGuardar" OnClick="btnGuardar_Click" />
-            <a href="Default.aspx">Regresar</a>
+        <div class="col-md-4 d-flex flex-column flex-md-row gap-2">
+            <asp:Button runat="server" Text="Guardar cambios" CssClass="btn btn-primary w-100 w-md-auto" ID="btnGuardar" OnClick="btnGuardar_Click" />
+            <%if (TPFinalNivel3_Correa.negocio.Seguridad.verificarAdmin(Session["sesionAbierta"]))
+                { %>
+            <asp:Button runat="server" ID="btnEliminarAdmin" CssClass="btn btn-dark w-100 w-md-auto" Text="NO ser admin" OnClick="btnEliminarAdmin_Click" />
+            <%} %>
+            <a href="Default.aspx" class="btn btn-secondary w-100 w-md-auto text-center">Regresar</a>
         </div>
     </div>
 </asp:Content>

@@ -21,7 +21,7 @@ namespace TPFinalNivel3_Correa
 				try
 				{
 					Usuario usuario = (Usuario)Session["sesionAbierta"];
-					//Verificar usuario activo, si no redireccionar a login
+
 					ListaFavoritos = negocio.listarFavoritos(usuario.Id, "");
 
 					if(ListaFavoritos.Count >= 1 && ListaFavoritos != null)
@@ -37,7 +37,7 @@ namespace TPFinalNivel3_Correa
 				}
 				catch (Exception ex)
 				{
-					Session.Add("error", ex.ToString());
+					Session.Add("error", "Error al cargar la página");
 					Response.Redirect("Error.aspx", false);
 				}
 			}
@@ -55,7 +55,7 @@ namespace TPFinalNivel3_Correa
 				if (ListaFavoritos.Count > 0)
 				{
 					Articulo seleccionado = negocio.listarFavoritos(usuario.Id, idArticulo).Find(x => x.Id == int.Parse(idArticulo));
-					negocio.eliminarFavorito(seleccionado.Id);
+					negocio.eliminarFavorito(seleccionado.Id, usuario.Id);
 					ListaFavoritos = negocio.listarFavoritos(usuario.Id);
 
 					if (ListaFavoritos.Count == 0)
@@ -76,10 +76,17 @@ namespace TPFinalNivel3_Correa
 			}
 			catch (Exception ex)
 			{
-				Session.Add("error", ex.ToString());
+				Session.Add("error", "Error al eliminar de favoritos");
 				Response.Redirect("Error.aspx", false);
 			}
-			
+
+		}
+		private void Page_Error(object sender, EventArgs e)
+		{
+			Exception exc = Server.GetLastError();
+
+			Session.Add("error", exc.ToString());
+			Server.Transfer("Error.aspx");
 		}
 	}
 }

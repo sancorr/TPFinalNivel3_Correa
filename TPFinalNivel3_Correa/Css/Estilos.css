@@ -1,0 +1,11 @@
+﻿body {
+}
+
+/*Estilo para imagen de formulario CREAR*/
+.image-limited {
+    max-width: 100%; 
+    max-height: 400px; 
+    object-fit: contain; 
+    border: 1px solid #ccc; 
+    border-radius: 8px; 
+}

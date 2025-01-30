@@ -15,6 +15,15 @@ namespace TPFinalNivel3_Correa
 	{
 
 		/// <summary>
+		/// Control ScriptmanagerAdmin.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.ScriptManager ScriptmanagerAdmin;
+
+		/// <summary>
 		/// Control tbxNombre.
 		/// </summary>
 		/// <remarks>
@@ -58,6 +67,24 @@ namespace TPFinalNivel3_Correa
 		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
 		/// </remarks>
 		protected global::System.Web.UI.WebControls.TextBox tbxPass;
+
+		/// <summary>
+		/// Control UpdatePanelAdmin.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.UpdatePanel UpdatePanelAdmin;
+
+		/// <summary>
+		/// Control chkAdmin.
+		/// </summary>
+		/// <remarks>
+		/// Campo generado automáticamente.
+		/// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+		/// </remarks>
+		protected global::System.Web.UI.WebControls.CheckBox chkAdmin;
 
 		/// <summary>
 		/// Control btnRegistro.
